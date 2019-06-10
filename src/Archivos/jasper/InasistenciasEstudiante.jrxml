@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Estudiantes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_seccion" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="min_id_persona" class="java.lang.Integer"/>
+	<parameter name="max_id_persona" class="java.lang.Integer"/>
+	<parameter name="fecha_inicio" class="java.util.Date"/>
+	<parameter name="fecha_fin" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT p.id_persona AS id_persona, p.nombre AS nombre, p.cedula AS cedula, e.numero_lista AS numero_lista,
+s.nombre AS seccion
+FROM persona p, estudiante e, seccion s
+WHERE e.estado = 1 AND p.id_persona=e.id_persona
+AND s.id_seccion=e.id_seccion
+AND e.id_seccion=$P{id_seccion}
+AND p.id_persona>=$P{min_id_persona} && p.id_persona<=$P{max_id_persona}
+ORDER BY e.numero_lista ASC;]]>
+	</queryString>
+	<field name="id_persona" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="numero_lista" class="java.lang.Integer"/>
+	<field name="seccion" class="java.lang.String"/>
+	<group name="Grupo_Estudiante" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{id_persona}]]></groupExpression>
+		<groupHeader>
+			<band height="151">
+				<textField>
+					<reportElement x="58" y="100" width="475" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="58" y="122" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="433" y="122" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_lista}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="146" y="54" width="214" height="20"/>
+					<textElement>
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Liceo BolivarianoBernabe Vivas]]></text>
+				</staticText>
+				<image>
+					<reportElement x="453" y="0" width="115" height="35"/>
+					<imageExpression><![CDATA[".\\Logo-Bicentenario-2010.jpg"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="453" y="45" width="44" height="33"/>
+					<imageExpression><![CDATA[".\\logo_bv.jpg"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="0" y="3" width="189" height="31"/>
+					<imageExpression><![CDATA[".\\logo_gb.jpg"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="200" y="0" width="312" height="32"/>
+					<imageExpression><![CDATA[".\\logo_me.gif"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="146" y="74" width="217" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Reporte de inasistencias]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="35" width="555" height="1"/>
+					<graphicElement>
+						<pen lineWidth="5.0" lineStyle="Double"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="0" y="100" width="58" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="122" width="58" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cédula:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="363" y="122" width="70" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[N° de lista:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="147" width="555" height="1"/>
+				</line>
+				<textField>
+					<reportElement x="240" y="122" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{seccion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="180" y="122" width="60" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sección:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="5" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="6" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="243" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="232"/>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<subreportParameter name="fecha_fin">
+					<subreportParameterExpression><![CDATA[$P{fecha_fin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_seccion">
+					<subreportParameterExpression><![CDATA[$P{id_seccion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_persona">
+					<subreportParameterExpression><![CDATA[$F{id_persona}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fecha_inicio">
+					<subreportParameterExpression><![CDATA[$P{fecha_inicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SR_MateriasEstudiante.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="0" y="30" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

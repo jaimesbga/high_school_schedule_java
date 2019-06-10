@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Totales" pageWidth="450" pageHeight="30" columnWidth="450" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_seccion" class="java.lang.Integer"/>
+	<parameter name="id_persona" class="java.lang.Integer"/>
+	<parameter name="fecha_inicio" class="java.util.Date"/>
+	<parameter name="fecha_fin" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+(SELECT COUNT(*)
+FROM actividadesdiarias a, materia m, horario h
+WHERE tipo_actividad = 1 AND
+h.id_materia=m.id_materia AND h.id_seccion=a.id_seccion
+AND a.dia_semana=h.dia_semana
+AND a.fecha>=$P{fecha_inicio} AND a.fecha<=$P{fecha_fin}
+AND a.id_seccion=$P{id_seccion}) AS cont1,
+(SELECT COUNT(*)
+FROM inasistencias i
+WHERE i.id_estudiante=$P{id_persona}
+) AS cont2]]>
+	</queryString>
+	<field name="cont1" class="java.lang.Float"/>
+	<field name="cont2" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField pattern="###0">
+				<reportElement x="86" y="7" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{cont1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="203" y="7" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{cont2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="7" width="52" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totales:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="86" y="4" width="100" height="1"/>
+			</line>
+			<line>
+				<reportElement x="203" y="4" width="100" height="1"/>
+			</line>
+			<line>
+				<reportElement x="332" y="4" width="100" height="1"/>
+			</line>
+			<textField pattern="###0.00">
+				<reportElement x="332" y="7" width="80" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{cont2}*100/$F{cont1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="412" y="7" width="20" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

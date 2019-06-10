@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="Librerias/mysql-connector-java-5.1.6-bin.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-lang-2.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="Librerias/swingx-1.6.jar"/>
+	<classpathentry kind="lib" path="Librerias/jcalendar-1.3.3.jar"/>
+	<classpathentry kind="lib" path="Librerias/iText-2.1.7.jar"/>
+	<classpathentry kind="lib" path="Librerias/jasperreports-4.0.0.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-logging.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-digester.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-collections.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

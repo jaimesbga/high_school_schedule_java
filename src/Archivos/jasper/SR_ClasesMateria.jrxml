@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Inasistencias" pageWidth="100" pageHeight="30" columnWidth="100" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_materia" class="java.lang.Integer"/>
+	<parameter name="fecha_inicio" class="java.util.Date"/>
+	<parameter name="fecha_fin" class="java.util.Date"/>
+	<parameter name="id_seccion" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT COUNT(*)
+FROM actividadesdiarias a, materia m, horario h
+WHERE tipo_actividad = 1 AND
+h.id_materia=m.id_materia AND h.id_seccion=a.id_seccion
+AND a.dia_semana=h.dia_semana
+AND a.fecha>=$P{fecha_inicio} AND a.fecha<=$P{fecha_fin}
+AND a.id_seccion=$P{id_seccion}
+AND m.id_materia=$P{id_materia}
+GROUP BY m.id_materia, m.nombre
+ORDER BY m.nombre ASC;]]>
+	</queryString>
+	<field name="COUNT(*)" class="java.lang.Float"/>
+	<variable name="totalClases" class="java.lang.Float">
+		<variableExpression><![CDATA[$F{COUNT(*)}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="###0">
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Float"><![CDATA[$F{COUNT(*)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
